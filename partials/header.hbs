@@ -1,0 +1,11 @@
+<div role="banner" class="header_meditation">
+  {{#if @blog.logo}}
+  <a class="logo_meditation" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>
+  {{/if}}
+  <h1 class="blogtitle_meditation">
+    <a title="{{@blog.title}}" href="{{@blog.url}}">{{{@blog.title}}}</a>
+  </h1>
+  <p class="blogdescription_meditation">
+    <a title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.description}}</a>
+  </p>
+</div>
