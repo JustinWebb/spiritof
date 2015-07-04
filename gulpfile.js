@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-07-03 19:07:06
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-07-03 21:01:42
+* @Last Modified time: 2015-07-03 22:18:21
 */
 
 // ---------------------------------------------------------
@@ -13,6 +13,7 @@ var sync = require('run-sequence');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
+var path = require('path');
 var config = require('./build.config');
 
 
@@ -51,5 +52,10 @@ gulp.task('build', function (cb) {
 
 gulp.task('deploy', function () {
   gulp.src(config.ghost.src)
-    .pipe(gulp.dest(config.ghost.themes + '/spiritof'))
+    .pipe(gulp.dest(path.join(config.ghost.themes, path.basename(__dirname))));
+});
+
+gulp.task('print', function () {
+  var out = path.basename(__dirname);
+  console.log('Print: ', out);
 });
