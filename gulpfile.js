@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-07-03 19:07:06
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-07-03 22:18:21
+* @Last Modified time: 2015-07-04 00:13:01
 */
 
 // ---------------------------------------------------------
@@ -23,18 +23,19 @@ var config = require('./build.config');
 
 // --------------- Contiguous Integration ---------------//
 
-gulp.task('clean', function () {
-  del(config.dist);
+gulp.task('clean', function (cb) {
+  del(config.dist, {force: true});
+  cb();
 });
 
 gulp.task('copy', function () {
   var targets = config.src_files.hbs;
-  gulp.src(targets)
+  return gulp.src(targets)
     .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('sass', function () {
-  gulp.src(config.src_files.sass)
+  return gulp.src(config.src_files.sass)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -45,14 +46,15 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(config.css_dir));
 });
 
-// Create deployable files
-gulp.task('build', function (cb) {
-  sync('clean', 'copy', 'sass', cb);
+gulp.task('dist', function () {
+  var themeDir = path.join(config.ghost.themes, path.basename(__dirname));
+  return gulp.src(config.ghost.src)
+    .pipe(gulp.dest(themeDir));
 });
 
-gulp.task('deploy', function () {
-  gulp.src(config.ghost.src)
-    .pipe(gulp.dest(path.join(config.ghost.themes, path.basename(__dirname))));
+// Create deployable files
+gulp.task('build', function (cb) {
+  sync('clean', 'copy', 'sass', 'dist', cb);
 });
 
 gulp.task('print', function () {
