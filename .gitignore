@@ -1,0 +1,11 @@
+
+# directories
+node_modules
+bower_components
+vendor
+.DS_Store
+
+# generated files
+*.css
+*.map
+*.log
