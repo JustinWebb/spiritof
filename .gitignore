@@ -3,9 +3,11 @@
 node_modules
 bower_components
 vendor
+dist
 .DS_Store
 
 # generated files
+.tmp
 *.css
 *.map
 *.log
