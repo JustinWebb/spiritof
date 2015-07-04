@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-07-03 19:07:06
-* @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-07-03 20:29:28
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-07-03 21:01:42
 */
 
 // ---------------------------------------------------------
@@ -47,4 +47,9 @@ gulp.task('sass', function () {
 // Create deployable files
 gulp.task('build', function (cb) {
   sync('clean', 'copy', 'sass', cb);
+});
+
+gulp.task('deploy', function () {
+  gulp.src(config.ghost.src)
+    .pipe(gulp.dest(config.ghost.themes + '/spiritof'))
 });
